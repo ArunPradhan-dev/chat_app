@@ -1,2 +1,3 @@
 .env
 .db
+chat_app/database.db
