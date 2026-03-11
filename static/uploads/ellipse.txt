@@ -1,0 +1,42 @@
+#include<stdio.h>
+#include<conio.h>
+#include<graphics.h>
+#include<dos.h>
+#include<math.h>
+void main(){
+	int gd=DETECT,gm,xc,yc,ox,oy,x,y;
+	float a,b,yf,r;
+	initgraph(&gd,&gm,"C:\\turboc3\\bgi");
+	rectangle(0,0,639,479);
+	ox=getmaxx()/2;
+	oy=getmaxy()/2;
+	line(ox,0,ox,2*oy);
+	line(0,oy,2*ox,oy);
+	printf("Enter center of ellipse:");
+	scanf("%d%d",&xc,&yc);
+	printf("Enter semi major axis:");
+	scanf("%f",&a);
+	printf("Enter semi minor axis:");
+	scanf("%f",&b);
+	x=0;
+	putpixel(ox+(xc+0),oy-(yc+b),GREEN);
+	putpixel(ox+(xc-0),oy-(yc-b),BLUE);
+	while(x<=a){
+		yf=b*sqrt(1-pow((x/a),2));
+		y=yf;
+		r=yf-y;
+		if(r>=0.5){
+			y=y+1;
+		}
+		putpixel(ox+(xc+x),oy-(yc+y),GREEN);
+		putpixel(ox+(xc-x),oy-(yc+y),YELLOW);
+		putpixel(ox+(xc+x),oy-(yc-y),WHITE);
+		putpixel(ox+(xc-x),oy-(yc-y),BLUE);
+		x=x+1;
+	}
+
+
+
+	getch();
+
+}

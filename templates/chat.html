@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>InstaChat</title>    
+    <link rel="stylesheet" href="/static/css/style2.css">
+    <script src="https://cdn.socket.io/4.3.2/socket.io.min.js"></script>
+</head>
+<body>
+<span id="username" style="display:none;">{{ username }}</span>
+<button id="sidebarToggle" class="sidebar-toggle">👥 Users</button>
+<div class="chat-wrapper">
+    <div class="chat-main">
+        <button id="logoutBtn" class="logout-btn">⏻ Logout</button>
+        <h2>Welcome, {{ username.capitalize() }}</h2>
+        <div class="chat-options">
+            <button onclick="switchRoom('general')">General Room</button>
+        </div>
+        <h3 id="current-room">Room: General</h3>
+        <div id="messages"></div>
+        <div class="input-area">
+            <input id="message" placeholder="Type your message here..." autocomplete="off" />
+            <div class="button-row">
+            <button id="emojiToggle" title="Toggle Emoji Panel">😊</button>
+            <button id="uploadBtn" title="Upload File">
+                <img src="/static/icons/attach.png" alt="Upload" style="width: 24px; height: 24px;">
+            </button>
+            <button id="sendBtn">Send</button>
+        </div>
+        </div>
+
+        <div id="upload-progress-container" style="display: none; margin-top: 10px;">
+    <div style="background: #eee; border-radius: 6px; overflow: hidden;">
+        <div id="upload-progress-bar" style="height: 10px; width: 0; background: #007bff;"></div>
+     </div>
+        </div>
+
+        <div id="emoji-panel" class="emoji-panel">
+  <span>😀</span><span>😃</span><span>😄</span><span>😁</span><span>😆</span>
+  <span>😅</span><span>😂</span><span>🤣</span><span>😊</span><span>😇</span>
+  <span>🙂</span><span>🙃</span><span>😉</span><span>😍</span><span>😘</span>
+  <span>😎</span><span>🤩</span><span>😜</span><span>😠</span><span>😢</span>
+  <span>😭</span><span>👍</span><span>❤️</span><span>🔥</span><span>💯</span>
+  <span>🎇</span><span>🤬</span><span>😴</span><span>😱</span><span>💀</span>
+  <span>💔</span><span>🧡</span><span>💦</span><span>😈</span><span>😔</span>
+</div>
+
+        <div id="typing"></div>
+    </div>
+    <div class="chat-sidebar" id="chatSidebar">
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+        <img src="/static/icons/instachat_logo.png" alt="InstaChat Logo" class="instachat-logo" style="height: 40px;">
+        <h2>InstaChat</h2>
+    </div>
+       <button id="themeToggle" class="theme-toggle">🌙 Dark Mode</button>
+        <h3>Online Users</h3>
+        <ul id="userList"></ul>
+    </div>
+</div>
+<div id="success-toast" class="toast success">Logged in successfully</div>
+<div id="invite-toast" class="invite-toast">
+  <p><span id="invite-user"></span> invited you to a private chat.</p>
+  <div class="invite-actions">
+    <button id="acceptInviteBtn">Join</button>
+    <button id="declineInviteBtn">Ignore</button>
+  </div>
+</div>
+<script src="/static/js/chat.js"></script>
+<div id="particles-js"></div>
+<script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
+<script>
+  particlesJS("particles-js", {
+    "particles": {
+      "number": { "value": 50 },
+      "size": { "value": 3 },
+      "move": { "speed": 1 },
+      "line_linked": { "enable": true }
+    }
+  });
+</script>
+</body>
+<script>
+    window.onload = function () {
+        const params = new URLSearchParams(window.location.search);
+        if (params.get('success') === 'login') {
+            const toast = document.getElementById('success-toast');
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 4000);
+        }
+    };
+</script>
+
+</html>

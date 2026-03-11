@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="/static/css/style3.css">
+</head>
+<body>
+    <h2>All Registered Users</h2>
+    <form method="POST">
+        <table border="1" cellpadding="10">
+            <tr>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+            {% for user in users %}
+            <tr>
+                <td>{{ user[1] }}</td>
+                <td>{{ user[2] }}</td>
+                <td>
+                    {% if user[3] == 1 %}
+                        ✅ Approved
+                    {% else %}
+                        ⏳ Pending
+                    {% endif %}
+                </td>
+                <td>
+                    {% if user[3] == 0 %}
+                        <button type="submit" name="approve_user_id" value="{{ user[0] }}">Approve</button>
+                    {% endif %}
+                    {% if user[1] != 'admin' %}
+                        <button type="submit" name="delete_user_id" value="{{ user[0] }}" style="background-color: #dc3545;">Remove</button>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </form>
+    <br>
+    <a href="/logout">Logout</a>
+    <div id="particles-js"></div>
+<script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
+<script>
+  particlesJS("particles-js", {
+    "particles": {
+      "number": { "value": 50 },
+      "size": { "value": 3 },
+      "move": { "speed": 1 },
+      "line_linked": { "enable": true }
+    }
+  });
+</script>
+</body>
+</html>
